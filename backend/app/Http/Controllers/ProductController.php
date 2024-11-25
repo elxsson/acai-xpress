@@ -8,6 +8,12 @@ use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->only(['store', 'update', 'destroy']);
+        $this->middleware('admin')->only(['store', 'update', 'destroy']);
+    }
+    
     public function index()
     {
         $products = Product::all();
