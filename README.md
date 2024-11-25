@@ -2,13 +2,13 @@
 
 Açai-Express é um sistema de pedidos online desenvolvido para uma açaiteria. O sistema permite que os clientes façam pedidos personalizados de açaí, selecionando sabores, tamanhos e acompanhamentos, com opções de entrega ou retirada. O sistema inclui múltiplas formas de pagamento e um painel administrativo para o gerenciamento de pedidos e produtos.
 
-## Funcionalidades
+## Funcionalidades e Recursos
 
 * Página Inicial/Menu: Exibe uma lista de produtos disponíveis, incluindo diferentes tamanhos e sabores de açaí, além de complementos.
     
 * Customização de Produtos: Interface interativa para personalização de pedidos com opções de tamanho, sabor e acompanhamentos.
 
-* Carrinho de Compras: Permite que o cliente visualize, edite e remova itens do carrinho, além de calcular o valor total do pedido.
+* Sacola: Permite que o cliente visualize, edite e remova itens da sacpla, além de calcular o valor total do pedido.
 
 * Finalização de Pedido (Checkout): Confirmação de endereço de entrega, método de pagamento (cartão, débito, Pix) e envio do pedido.
 
