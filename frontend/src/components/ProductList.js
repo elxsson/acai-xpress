@@ -4,10 +4,42 @@ import "../styles/ProductList.css";
 
 const ProductList = () => {
   const products = [
-    { id: 1, name: "Açaí com Frutas", price: 15.99 },
-    { id: 2, name: "Açaí com Granola", price: 13.49 },
-    { id: 3, name: "Açaí com Chocolate", price: 17.29 },
-    
+    {
+      id: 1,
+      name: "Açaí Tradicional",
+      description: "Açaí batido com banana e granola.",
+      image: "/assets/acai1.jpg",
+    },
+    {
+      id: 2,
+      name: "Açaí com Morango",
+      description: "Açaí com pedaços de morango e leite condensado.",
+      image: "/assets/acai2.jpg",
+    },
+    {
+      id: 3,
+      name: "Açaí Completo",
+      description: "Açaí com frutas, granola e leite condensado.",
+      image: "/assets/acai3.jpg",
+    },
+    {
+      id: 1,
+      name: "Açaí Tradicional",
+      description: "Açaí batido com banana e granola.",
+      image: "/assets/acai1.jpg",
+    },
+    {
+      id: 2,
+      name: "Açaí com Morango",
+      description: "Açaí com pedaços de morango e leite condensado.",
+      image: "/assets/acai2.jpg",
+    },
+    {
+      id: 3,
+      name: "Açaí Completo",
+      description: "Açaí com frutas, granola e leite condensado.",
+      image: "/assets/acai3.jpg",
+    },
   ];
 
   return (
