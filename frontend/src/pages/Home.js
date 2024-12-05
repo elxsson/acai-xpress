@@ -9,6 +9,7 @@ const Home = () => {
   return (
     <div>
       <InitialSection />
+      <h1>Mais pedidos</h1>
       <div className="content-wrapper">
         <ProductList />
         <Bag />

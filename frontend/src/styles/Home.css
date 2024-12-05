@@ -1,6 +1,29 @@
+
+
 .content-wrapper {
-    display: flex;
-    gap: 20px;
-    padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: #7d5fb8;
+  margin: 20px 0;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  text-align: left;
+  border-bottom: 3px solid #7d5fb8;
+  display: inline-block;
+}
+
+
+
+@media (max-width: 768px) {
+  .content-wrapper {
+    flex-direction: column;
   }
-  
+}
+
