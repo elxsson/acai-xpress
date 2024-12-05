@@ -1,0 +1,31 @@
+.footer {
+    background-color: #7d5fb8; /* Cor roxa */
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+  
+  .footer-left {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .footer-right {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .social-icon {
+    width: 24px; /* Ajuste o tamanho conforme necessário */
+    height: 24px; /* Ajuste o tamanho conforme necessário */
+    cursor: pointer;
+    transition: opacity 0.3s;
+  }
+  
+  .social-icon:hover {
+    opacity: 0.7; /* Efeito de hover */
+  }
+  
