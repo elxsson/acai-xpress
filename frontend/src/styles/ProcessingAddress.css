@@ -1,0 +1,25 @@
+.enderecoDiv {
+    padding: 10px;
+}
+.enderecoDiv p {
+    display: inline-block;
+    font-size: large;
+    font-weight: bold;
+    margin-right: 10px;
+}
+.enderecoDiv input {
+    width: calc(100% - 170px); 
+    display: inline-block;
+    padding: 5px;
+}
+.addEndereco {
+    display: block;
+    font-weight: bolder;
+    font-size: large;
+    font-style: italic;
+    border: none;
+    margin: 10px auto 0;
+    background: none;
+    cursor: pointer;
+    color: brown;
+}
