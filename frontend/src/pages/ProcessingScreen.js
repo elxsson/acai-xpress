@@ -1,5 +1,4 @@
 import React from "react";
-import ProcessingPrincipal from "../components/ProcessingPrincipal";
 import ProcessingAddress from "../components/ProcessingAddress";
 import ProcessingPrice from "../components/ProcessingPrice";
 
