@@ -4,32 +4,33 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
     public function register(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:6|confirmed',
+            'password' => 'required|min:6',
         ]);
 
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
+        $user = new User();
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->is_admin = false;
+        $user->save();
 
-        $user = User::create([
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+        $token = $user->createToken('user_token')->plainTextToken;
 
         return response()->json([
-            'user' => $user,
-            'token' => $user->createToken('AcaiExpress')->plainTextToken
+            'message' => 'Usuário registrado com sucesso!',
+            'token' => $token,
+            'user' => [
+                'id' => $user->id,
+                'email' => $user->email,
+            ]
         ], 201);
     }
 }
-

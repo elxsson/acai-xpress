@@ -1,32 +1,40 @@
 <?php
+
 namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
 class LoginController extends Controller
 {
     public function login(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'email' => 'required|email',
             'password' => 'required|min:6',
         ]);
 
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
+        $user = User::where('email', $request->email)->first();
 
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            $user = Auth::user();
+        if ($user && Hash::check($request->password, $user->password)) {
+            Auth::login($user);
+
+            $token = $user->createToken('user_token')->plainTextToken;
+
             return response()->json([
-                'user' => $user,
-                'token' => $user->createToken('AcaiExpress')->plainTextToken
+                'message' => 'Login bem-sucedido!',
+                'redirect_url' => $user->is_admin ? '/admin' : '/',
+                'token' => $token,
+                'user' => [
+                    'id' => $user->id,
+                    'email' => $user->email
+                ]
             ], 200);
         }
 
-        return response()->json(['message' => 'Credenciais inválidas'], 401);
+        return response()->json(['message' => 'Credenciais inválidas.'], 401);
     }
 }
