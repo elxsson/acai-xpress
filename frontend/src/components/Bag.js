@@ -1,17 +1,18 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/Bag.css";
 
-const Bag = () => {
-  const bagItems = [
-    { id: 1, name: "Açaí Tradicional", price: "R$15,00" },
-    { id: 2, name: "Açaí com Frutas", price: "R$18,00" },
-    { id: 3, name: "Açaí Premium", price: "R$22,00" },
-  ];
+const Bag = ({ bagItems }) => {
+  const navigate = useNavigate();
 
   const totalPrice = bagItems.reduce((total, item) => {
     const priceNumber = parseFloat(item.price.replace("R$", "").replace(",", "."));
     return total + priceNumber;
   }, 0).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+
+  const handleCheckout = () => {
+    navigate("/");
+  };
 
   return (
     <div className="bag">
@@ -25,7 +26,9 @@ const Bag = () => {
         ))}
       </ul>
       <div className="total-price">Total: {totalPrice}</div>
-      <button className="checkout-button">Finalizar Compra</button>
+      <button className="checkout-button" onClick={handleCheckout}>
+        Finalizar Compra
+      </button>
     </div>
   );
 };

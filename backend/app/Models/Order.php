@@ -8,21 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     use HasFactory;
+    protected $fillable = ['user_id', 'products', 'total'];
 
-    protected $fillable = ['user_id', 'status', 'total_price', 'delivery_address', 'payment_method'];
+    protected $casts = [
+        'products' => 'array',
+    ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function orderItems()
+    public function comments()
     {
-        return $this->hasMany(OrderItem::class);
-    }
-
-    public function calculateTotal()
-    {
-        return $this->orderItems->sum('subtotal');
+        return $this->hasMany(Comment::class);
     }
 }

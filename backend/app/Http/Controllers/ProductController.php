@@ -4,92 +4,88 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->only(['store', 'update', 'destroy']);
-        $this->middleware('admin')->only(['store', 'update', 'destroy']);
+        $this->middleware('isAdmin')->except('index');
     }
     
     public function index()
     {
         $products = Product::all();
-        return response()->json($products);
+
+        return response()->json([
+            'products' => $products,
+        ], 200);
     }
 
     public function show(Product $product)
     {
         if (!$product) {
-            return response()->json(['message' => 'Produto não encontrado'], 404);
+            return response()->json([
+                'message' => 'Produto não encontrado',
+            ], 404);
         }
 
-        return response()->json($product);
+        return response()->json([
+            'product' => $product,
+        ], 200);
     }
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
-            'volume' => 'nullable|integer',
-            'toppings' => 'nullable|array',
+            'description' => 'nullable|string|max:1000',
+            'stock' => 'required|integer|min:0',
         ]);
 
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
+        $product = Product::create($validatedData);
 
-        $product = Product::create([
-            'name' => $request->name,
-            'description' => $request->description,
-            'price' => $request->price,
-            'volume' => $request->volume,
-            'toppings' => $request->toppings,
-        ]);
-
-        return response()->json($product, 201);
+        return response()->json([
+            'message' => 'Produto criado com sucesso',
+            'product' => $product,
+        ], 201);
     }
 
     public function update(Request $request, Product $product)
     {
         if (!$product) {
-            return response()->json(['message' => 'Produto não encontrado'], 404);
+            return response()->json([
+                'message' => 'Produto não encontrado',
+            ], 404);
         }
 
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'price' => 'required|numeric|min:0',
-            'volume' => 'nullable|integer',
-            'toppings' => 'nullable|array',
+        $validatedData = $request->validate([
+            'name' => 'sometimes|required|string|max:255',
+            'price' => 'sometimes|required|numeric|min:0',
+            'description' => 'nullable|string|max:1000',
+            'stock' => 'sometimes|required|integer|min:0',
         ]);
 
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
+        $product->update($validatedData);
 
-        $product->update([
-            'name' => $request->name,
-            'description' => $request->description,
-            'price' => $request->price,
-            'volume' => $request->volume,
-            'toppings' => $request->toppings,
-        ]);
-
-        return response()->json($product);
+        return response()->json([
+            'message' => 'Produto atualizado com sucesso',
+            'product' => $product,
+        ], 200);
     }
 
     public function destroy(Product $product)
     {
         if (!$product) {
-            return response()->json(['message' => 'Produto não encontrado'], 404);
+            return response()->json([
+                'message' => 'Produto não encontrado',
+            ], 404);
         }
 
         $product->delete();
-        return response()->json(['message' => 'Produto deletado com sucesso']);
+
+        return response()->json([
+            'message' => 'Produto excluído com sucesso',
+        ], 200);
     }
 }

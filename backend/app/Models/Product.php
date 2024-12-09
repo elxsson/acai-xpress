@@ -9,14 +9,9 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description', 'price', 'volume', 'toppings'];
+    protected $fillable = ['name', 'size', 'toppings', 'description', 'price'];
 
     protected $casts = [
         'toppings' => 'array',
     ];
-
-    public function orderItems()
-    {
-        return $this->hasMany(OrderItem::class);
-    }
 }

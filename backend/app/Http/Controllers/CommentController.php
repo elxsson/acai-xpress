@@ -3,40 +3,43 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
-use App\Models\Order;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
-    public function store(Request $request, Order $order)
+    public function index()
     {
-        $request->validate([
-            'comment' => 'required|string|max:500',
-        ]);
+        $comments = Comment::with('user')->get();
 
-        $comment = Comment::create([
-            'user_id' => Auth::id(),
-            'order_id' => $order->id,
-            'comment' => $request->comment,
-        ]);
-
-        return response()->json($comment, 201);
+        return response()->json([
+            'comments' => $comments,
+        ], 200);
     }
 
-    public function index($orderId)
+    public function store(Request $request)
     {
-        $comments = Comment::where('order_id', $orderId)->get();
-        return response()->json($comments);
-    }
+        $validatedData = $request->validate([
+            'content' => 'required|string|max:1000',
+            'order_id' => 'required|exists:orders,id',
+        ]);
 
-    public function destroy(Comment $comment)
-    {
-        if ($comment->user_id !== Auth::id() && !Auth::user()->is_admin) {
-            return response()->json(['message' => 'Sem autorizacao'], 403);
+        $userId = session('user_id');
+
+        if (!$userId) {
+            return response()->json([
+                'message' => 'Usuário não autenticado na sessão',
+            ], 401);
         }
 
-        $comment->delete();
-        return response()->json(['message' => 'Comentario deletado com sucesso']);
+        $comment = Comment::create([
+            'user_id' => $userId,
+            'content' => $validatedData['content'],
+            'order_id' => $validatedData['order_id'],
+        ]);
+
+        return response()->json([
+            'message' => 'Comentário criado com sucesso',
+            'comment' => $comment,
+        ], 201);
     }
 }

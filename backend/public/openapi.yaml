@@ -1,0 +1,235 @@
+openapi: 3.0.0
+info:
+  title: API do Projeto
+  version: 1.0.0
+  description: API para gerenciamento de usuários, produtos e pedidos.
+paths:
+  /users:
+    post:
+      summary: Criar um novo usuário
+      description: Cria um novo usuário e salva o ID na sessão.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "John Doe"
+                location:
+                  type: string
+                  example: "São Paulo"
+      responses:
+        '201':
+          description: Usuário criado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Usuário criado com sucesso"
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: "John Doe"
+                      location:
+                        type: string
+                        example: "São Paulo"
+        '400':
+          description: Erro de validação
+  /check-session:
+    get:
+      summary: Verificar se o usuário está autenticado
+      description: Retorna o ID do usuário autenticado ou uma mensagem de erro.
+      responses:
+        '200':
+          description: Usuário autenticado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user_id:
+                    type: integer
+                    example: 1
+        '404':
+          description: Usuário não autenticado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Usuário não autenticado"
+  /products:
+    get:
+      summary: Listar todos os produtos
+      description: Retorna todos os produtos disponíveis.
+      responses:
+        '200':
+          description: Lista de produtos
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  products:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        name:
+                          type: string
+                          example: "Açaí com Granola"
+                        price:
+                          type: number
+                          format: float
+                          example: 15.00
+  /orders:
+    get:
+      summary: Listar todos os comentários de pedidos
+      description: Retorna todos os comentários de pedidos com detalhes do usuário.
+      responses:
+        '200':
+          description: Lista de comentários
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  comments:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        user:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 1
+                            name:
+                              type: string
+                              example: "John Doe"
+                        content:
+                          type: string
+                          example: "Ótimo serviço!"
+    post:
+      summary: Criar um novo comentário para um pedido
+      description: Cria um novo comentário para um pedido existente.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+                  example: "Excelente pedido!"
+                order_id:
+                  type: integer
+                  example: 1
+      responses:
+        '201':
+          description: Comentário criado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Comentário criado com sucesso"
+                  comment:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      user_id:
+                        type: integer
+                        example: 1
+                      content:
+                        type: string
+                        example: "Excelente pedido!"
+                      order_id:
+                        type: integer
+                        example: 1
+        '401':
+          description: Usuário não autenticado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Usuário não autenticado na sessão"
+        '404':
+          description: Pedido não encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Erro ao criar o comentário"
+  /orders/{orderId}/comments:
+    get:
+      summary: Listar comentários de um pedido específico
+      description: Retorna todos os comentários de um pedido específico.
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          description: ID do pedido
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Comentários do pedido
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  comments:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        content:
+                          type: string
+                          example: "Muito bom"
+        '404':
+          description: Pedido não encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Pedido não encontrado"

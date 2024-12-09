@@ -1,37 +1,47 @@
 # Acai-express
 
-Açai-Express é um sistema de pedidos online desenvolvido para uma açaiteria. O sistema permite que os clientes façam pedidos personalizados de açaí, selecionando sabores, tamanhos e acompanhamentos, com opções de entrega ou retirada. O sistema inclui múltiplas formas de pagamento e um painel administrativo para o gerenciamento de pedidos e produtos.
+## Instruções para Rodar o Projeto
 
-## Funcionalidades e Recursos
+### backend
 
-* Página Inicial/Menu: Exibe uma lista de produtos disponíveis, incluindo diferentes tamanhos e sabores de açaí, além de complementos.
-    
-* Customização de Produtos: Interface interativa para personalização de pedidos com opções de tamanho, sabor e acompanhamentos.
+Clonar o repositório
+```bash
 
-* Sacola: Permite que o cliente visualize, edite e remova itens da sacpla, além de calcular o valor total do pedido.
+git clone https://github.com/elxsson/acai-xpress.git
+```
+Navegar para o diretório backend
 
-* Finalização de Pedido (Checkout): Confirmação de endereço de entrega, método de pagamento (cartão, débito, Pix) e envio do pedido.
+```bash
+cd backend
+```
 
-* Painel Administrativo: Gerenciamento de pedidos, clientes, produtos e promoções.
+Instalar dependências do Composer
 
-* Opções de Entrega e Retirada: Escolha entre receber o pedido em casa ou retirar na loja.
+```bash
+composer install
+```
+Configurar banco de dados e rodar migrações
+```bash
+php artisan migrate --seed
+```
 
-## Tecnologias Utilizadas
-#### Frontend:
+Iniciar servidor de desenvolvimento
 
-* HTML, CSS, JavaScript
-* React.js
+```bash
+php artisan serve
+```
 
-#### Backend:
+### Frontend
+Navegar para o diretório frontend
+```bash
+cd ../frontend
+```
+Instalar dependências do npm
+```bash
+npm install
+```
+Iniciar aplicação frontend
+```bash
+npm start
+```
 
-* PHP 8.2
-* Laravel 10
-
-#### Banco de Dados:
-
-* PostgreSQL
-
-#### Outras Tecnologias:
-
-* Git para controle de versão
-* Figma para criar a identidade visual do projeto
