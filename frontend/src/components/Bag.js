@@ -6,12 +6,16 @@ const Bag = ({ bagItems }) => {
   const navigate = useNavigate();
 
   const totalPrice = bagItems.reduce((total, item) => {
-    const priceNumber = parseFloat(item.price.replace("R$", "").replace(",", "."));
-    return total + priceNumber;
-  }, 0).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+    return total + item.price;
+  }, 0);
+
+  const formattedTotalPrice = totalPrice.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  });
 
   const handleCheckout = () => {
-    navigate("/");
+    navigate("/payment", { state: { totalPrice } }); // Passando totalPrice como estado
   };
 
   return (
@@ -21,11 +25,16 @@ const Bag = ({ bagItems }) => {
         {bagItems.map((item) => (
           <li key={item.id} className="bag-item">
             <span className="bag-item-name">{item.name}</span>
-            <span className="bag-item-price">{item.price}</span>
+            <span className="bag-item-price">
+              {item.price.toLocaleString("pt-BR", {
+                style: "currency",
+                currency: "BRL",
+              })}
+            </span>
           </li>
         ))}
       </ul>
-      <div className="total-price">Total: {totalPrice}</div>
+      <div className="total-price">Total: {formattedTotalPrice}</div>
       <button className="checkout-button" onClick={handleCheckout}>
         Finalizar Compra
       </button>

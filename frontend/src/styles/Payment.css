@@ -1,0 +1,38 @@
+.payment-page {
+    text-align: center;
+    color: #fff;
+    background: linear-gradient(135deg, #6a0dad, #ff6600);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .payment-content {
+    margin: 2rem auto;
+    padding: 1.5rem;
+    max-width: 400px;
+    background: #ffffff33;
+    border-radius: 8px;
+  }
+  
+  .payment-details p {
+    font-size: 1.1rem;
+    margin: 0.5rem 0;
+  }
+  
+  .qrcode-container {
+    margin: 1.5rem 0;
+  }
+  
+  .payment-instruction {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .payment-link {
+    margin-top: 0.5rem;
+    font-weight: bold;
+    font-size: 1rem;
+  }
+  

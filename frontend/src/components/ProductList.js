@@ -7,18 +7,31 @@ const ProductList = ({ addToBag }) => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
+    axios.get("http://127.0.0.1:8000/api/products")
+      .then((response) => {
 
-    axios.get("http://127.0.0.1:8000/api/products").then((response) => {
-      setProducts(response.data);
-
-    }); 
+        const productArray = response.data?.products || response.data;
+        
+        if (Array.isArray(productArray)) {
+          setProducts(productArray);
+        } else {
+          console.error("Erro: A resposta da API não contém um array de produtos.");
+        }
+      })
+      .catch((error) => {
+        console.error("Erro ao buscar os produtos:", error);
+      });
   }, []);
 
   return (
     <div className="product-list">
-      {products.map((product) => (
-        <ProductCard key={product.id} product={product} addToBag={addToBag} />
-      ))}
+      {Array.isArray(products) && products.length > 0 ? (
+        products.map((product) => (
+          <ProductCard key={product.id} product={product} addToBag={addToBag} />
+        ))
+      ) : (
+        <div>Nenhum produto encontrado.</div>
+      )}
     </div>
   );
 };

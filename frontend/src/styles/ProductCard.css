@@ -1,77 +1,60 @@
-/* .product-card {
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 10px;
-    text-align: center;
-    background-color: #fff;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .btn {
-    margin-top: 10px;
-    background-color: #f79f3a;
-    border: none;
-    color: white;
-    padding: 8px 12px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .btn:hover {
-    background-color: #e07b1e;
-  } */
-  
-  .product-card {
-    display: flex;
-    align-items: center;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-    gap: 15px;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  
-  .product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
-  }
-  
-  .product-image {
-    width: 100px;
-    height: 100px;
-    border-radius: 8px;
-    object-fit: cover;
-  }
-  
-  .product-details {
-    flex: 1;
-  }
-  
-  .product-name {
-    font-size: 1.2em;
-    color: #7d5fb8;
-    margin: 0;
-  }
-  
-  .product-description {
-    font-size: 0.9em;
-    color: #3c2c5c;
-    margin: 5px 0;
-  }
-  
-  .add-button {
-    background-color: #f79f3a;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-    transition: background-color 0.2s;
-  }
-  
-  .add-button:hover {
-    background-color: #d98631;
-  }
-    
+.product-card {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  gap: 15px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.product-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.product-details {
+  flex: 1;
+}
+
+.product-name {
+  font-size: 1.2em;
+  color: #7d5fb8;
+  margin: 0;
+}
+
+.product-description {
+  font-size: 0.9em;
+  color: #3c2c5c;
+  margin: 5px 0;
+}
+
+.product-price {
+  font-size: 1.1em;
+  color: #f79f3a;  /* Cor laranja */
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+.add-button {
+  background-color: #f79f3a;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.2s;
+}
+
+.add-button:hover {
+  background-color: #d98631;
+}
